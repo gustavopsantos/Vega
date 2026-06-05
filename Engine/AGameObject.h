@@ -6,7 +6,7 @@ class GameEngine;
 class AGameObject
 {
 public:
-    explicit AGameObject(GameEngine& gameEngine);
+    explicit AGameObject(const GameEngine& gameEngine);
     virtual ~AGameObject() = default;
 
     virtual void Start() = 0;
@@ -14,8 +14,8 @@ public:
     virtual void Render() = 0;
 
 protected:
-    GameEngine& GetGameEngine() const;
+    const GameEngine& GetGameEngine() const;
 
 private:
-    GameEngine& m_GameEngine;
+    const GameEngine& m_GameEngine;
 };

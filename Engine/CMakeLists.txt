@@ -1,6 +1,8 @@
 add_library(Engine
     GameEngine.cpp
     GameEngine.h
+    TimeManager.cpp
+    TimeManager.h
     AGameObject.cpp
     AGameObject.h
 )

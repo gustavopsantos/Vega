@@ -7,8 +7,7 @@ void AutoMovableCube::Start()
 
 void AutoMovableCube::Update()
 {
-	Uint64 timeMs = SDL_GetTicks();
-	float timeSecs = timeMs / 1000.0f;
+	float timeSecs = GetGameEngine().m_TimeManager->GetFrameStartTimeSecs();
 	float windowCenterX = 400;
 	float windowCenterY = 300;
 	const int cubeSize = 100;

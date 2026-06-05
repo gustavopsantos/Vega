@@ -4,7 +4,7 @@
 class AutoMovableCube : public AGameObject
 {
 public:
-	AutoMovableCube(GameEngine& gameEngine) : AGameObject(gameEngine) {}
+	AutoMovableCube(const GameEngine& gameEngine) : AGameObject(gameEngine) {}
 	void Start() override;
 	void Update() override;
 	void Render() override;

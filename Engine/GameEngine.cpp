@@ -34,6 +34,8 @@ GameEngine::GameEngine(int width, int height, const char* const title)
 		SDL_Quit();
 		throw std::runtime_error(SDL_GetError());
 	}
+
+	m_TimeManager = new TimeManager();
 }
 
 GameEngine::~GameEngine()
@@ -74,6 +76,7 @@ int GameEngine::Run()
 			}
 		}
 
+		m_TimeManager->Update();
 		for (auto& object : m_gameObjects)
 		{
 			object->Update();
