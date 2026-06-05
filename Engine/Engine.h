@@ -4,7 +4,11 @@
 class GameEngine
 {
 public:
-	SDL_Window* m_Window;
-	SDL_Renderer* m_Renderer;
+	GameEngine(int width, int height, const char* const title);
+	~GameEngine();
 	int Run();
+
+private:
+	SDL_Window* m_Window = nullptr;
+	SDL_Renderer* m_Renderer = nullptr;
 };
