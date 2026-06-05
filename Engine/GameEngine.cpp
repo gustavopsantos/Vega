@@ -1,10 +1,11 @@
-#include "Engine.h"
-
+#include "GameEngine.h"
 #include <iostream>
 #include <vector>
 #include <format>
 #include <thread>
 #include <cmath>
+
+#define WINDOW_CLEAR_COLOR 25, 25, 25, 255
 
 GameEngine::GameEngine(int width, int height, const char* const title)
 {
@@ -46,6 +47,12 @@ GameEngine::~GameEngine()
 	SDL_Quit();
 }
 
+void GameEngine::RegisterGameObject(std::unique_ptr<AGameObject> gameObject)
+{
+	gameObject->Start();
+	m_gameObjects.push_back(std::move(gameObject));
+}
+
 int GameEngine::Run()
 {
 	int windowWidth;
@@ -59,9 +66,6 @@ int GameEngine::Run()
 
 	while (running)
 	{
-		Uint64 timeMs = SDL_GetTicks();
-		float timeSeconds = timeMs / 1000.0f;
-
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_EVENT_QUIT || (event.type == SDL_EVENT_KEY_DOWN && event.key.key == SDLK_ESCAPE))
@@ -70,17 +74,18 @@ int GameEngine::Run()
 			}
 		}
 
-		SDL_SetRenderDrawColor(m_Renderer, 25, 25, 25, 255);
+		for (auto& object : m_gameObjects)
+		{
+			object->Update();
+		}
+
+		SDL_SetRenderDrawColor(m_Renderer, WINDOW_CLEAR_COLOR);
 		SDL_RenderClear(m_Renderer);
 
-		const int cubeSize = 100;
-		const int cubeSizeHalf = cubeSize / 2.0f;
-		const int circleRadius = 200;
-		float x = (std::cos(timeSeconds) * circleRadius) + windowCenterX - cubeSizeHalf;
-		float y = (std::sin(timeSeconds) * circleRadius) + windowCenterY - cubeSizeHalf;
-		SDL_FRect rect = { x, y, cubeSize, cubeSize };
-		SDL_SetRenderDrawColor(m_Renderer, 0, 200, 255, 255);
-		SDL_RenderFillRect(m_Renderer, &rect);
+		for (auto& object : m_gameObjects)
+		{
+			object->Render();
+		}
 
 		SDL_RenderPresent(m_Renderer);
 	}
