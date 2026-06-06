@@ -8,3 +8,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(Engine)
 add_subdirectory(Game)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT Game)
