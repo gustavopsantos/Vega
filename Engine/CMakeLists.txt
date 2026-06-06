@@ -3,8 +3,13 @@ add_library(Engine
     GameEngine.h
     TimeManager.cpp
     TimeManager.h
-    AGameObject.cpp
-    AGameObject.h
+    InputManager.cpp
+    InputManager.h
+    GameObject.cpp
+    GameObject.h
+    MapUtils.h
+    Vector2.h
+    Vector2.cpp
 )
 
 target_include_directories(Engine

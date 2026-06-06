@@ -1,7 +1,8 @@
 #pragma once
 #include "SDL3/SDL.h"
 #include "TimeManager.h"
-#include "AGameObject.h"
+#include "InputManager.h"
+#include "GameObject.h"
 #include <memory>
 #include <vector>
 
@@ -14,10 +15,11 @@ public:
 	SDL_Window* m_Window = nullptr;
 	SDL_Renderer* m_Renderer = nullptr;
 	TimeManager* m_TimeManager = nullptr;
+	InputManager* m_InputManager = nullptr;
 	
 	int Run();
-	void RegisterGameObject(std::unique_ptr<AGameObject> gameObject);
+	void RegisterGameObject(std::unique_ptr<GameObject> gameObject);
 	
 private:
-	std::vector<std::unique_ptr<AGameObject>> m_gameObjects;
+	std::vector<std::unique_ptr<GameObject>> m_gameObjects;
 };

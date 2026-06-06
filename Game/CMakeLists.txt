@@ -1,7 +1,7 @@
 add_executable(Game
     Main.cpp
-    AutoMovableCube.cpp
-    AutoMovableCube.h
+    MovableQuad.cpp
+    MovableQuad.h
 )
 
 target_link_libraries(Game
