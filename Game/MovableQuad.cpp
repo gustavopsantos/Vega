@@ -9,26 +9,33 @@ void MovableQuad::Start()
 
 void MovableQuad::Update()
 {
-	const float quadSize = 100.0f;
-	int horizontal = GetEngine().m_InputManager.GetHorizontalAxis();
-	int vertical = GetEngine().m_InputManager.GetVerticalAxis() * -1; // (0, 0) coordinate is on top left, so x increases to the right, and y increases to the bottom	
-	Vector2 axis = Vector2(horizontal, vertical).ClampMagnitude(1.0f);
-	const int movementSpeed = 400; // Pixels per second
-	m_Position += axis * movementSpeed * GetEngine().m_TimeManager.GetDeltaTimeSecs();
+	const GameEngine& engine = GetEngine();
+	float dt = engine.m_TimeManager.GetDeltaTimeSecs();
 
+	// Get movement input
+	int horizontal = engine.m_InputManager.GetHorizontalAxis();
+	int vertical = engine.m_InputManager.GetVerticalAxis() * -1; // (0, 0) coordinate is on top left, so x increases to the right, and y increases to the bottom	
+	Vector2 axis = Vector2(horizontal, vertical).ClampMagnitude(1.0f);
+
+	// Handle velocity
+	Vector2 desiredVelocity = axis * m_MovementSpeed;
+	m_Velocity = Vector2::MoveTowards(m_Velocity, desiredVelocity, m_Acceleration * dt);
+	
+	// Apply movement input
+	m_Rect.x += m_Velocity.x * dt;
+	m_Rect.y += m_Velocity.y * dt;
+
+	// Clamp quad bounds within window
 	int windowWidth;
 	int windowHeight;
-	SDL_GetWindowSize(GetEngine().m_Window, &windowWidth, &windowHeight);
-
-	m_Position.x = std::clamp(m_Position.x, 0.0f, windowWidth - quadSize);
-	m_Position.y = std::clamp(m_Position.y, 0.0f, windowHeight - quadSize);
-	SDL_Log("Horizontal %d Vertical %d", horizontal, vertical);
+	SDL_GetWindowSize(engine.m_Window, &windowWidth, &windowHeight);
+	m_Rect.x = std::clamp(m_Rect.x, 0.0f, windowWidth - m_Rect.w);
+	m_Rect.y = std::clamp(m_Rect.y, 0.0f, windowHeight - m_Rect.h);
 }
 
 void MovableQuad::Render()
 {
-	const int cubeSize = 100;
-	SDL_FRect rect = { m_Position.x, m_Position.y, cubeSize, cubeSize };
-	SDL_SetRenderDrawColor(GetEngine().m_Renderer, 0, 200, 255, 255);
-	SDL_RenderFillRect(GetEngine().m_Renderer, &rect);
+	const GameEngine& engine = GetEngine();
+	SDL_SetRenderDrawColor(engine.m_Renderer, 0, 200, 255, 255);
+	SDL_RenderFillRect(engine.m_Renderer, &m_Rect);
 }

@@ -10,6 +10,8 @@ class GameEngine
 {
 public:
 	GameEngine(int width, int height, const char* const title);
+	GameEngine(const GameEngine&) = delete;
+	GameEngine& operator=(const GameEngine&) = delete;
 	~GameEngine();
 
 	SDL_Window* m_Window = nullptr;
