@@ -34,8 +34,7 @@ Vector2 Vector2::ClampMagnitude(float maxLength) const
         return Vector2(x, y);
     }
 
-    float div = magnitude * maxLength;
-    return Vector2(x / div, y / div);
+    return Vector2((x / magnitude) * maxLength, (y / magnitude) * maxLength);
 }
 
 Vector2 Vector2::MoveTowards(const Vector2& from, const Vector2& to, float maxDelta)

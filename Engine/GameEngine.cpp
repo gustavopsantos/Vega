@@ -1,9 +1,4 @@
 #include "GameEngine.h"
-#include <iostream>
-#include <vector>
-#include <format>
-#include <thread>
-#include <cmath>
 
 #define WINDOW_CLEAR_COLOR 25, 25, 25, 255
 
@@ -68,12 +63,6 @@ void GameEngine::RegisterGameObject(std::unique_ptr<GameObject> gameObject)
 
 int GameEngine::Run()
 {
-	int windowWidth;
-	int windowHeight;
-	SDL_GetWindowSize(m_Window, &windowWidth, &windowHeight);
-	const float windowCenterX = windowWidth / 2.0f;
-	const float windowCenterY = windowHeight / 2.0f;
-
 	bool running = true;
 	SDL_Event event;
 
