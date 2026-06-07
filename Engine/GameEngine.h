@@ -14,8 +14,8 @@ public:
 
 	SDL_Window* m_Window = nullptr;
 	SDL_Renderer* m_Renderer = nullptr;
-	TimeManager* m_TimeManager = nullptr;
-	InputManager* m_InputManager = nullptr;
+	TimeManager m_TimeManager;
+	InputManager m_InputManager;
 	
 	int Run();
 	void RegisterGameObject(std::unique_ptr<GameObject> gameObject);

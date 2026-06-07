@@ -30,12 +30,8 @@ GameEngine::GameEngine(int width, int height, const char* const title)
 		throw std::runtime_error(SDL_GetError());
 	}
 
-	const char* rendererName = SDL_GetRendererName(m_Renderer);
-
-	SDL_Log("Renderer: %s", rendererName);
-
-	m_TimeManager = new TimeManager();
-	m_InputManager = new InputManager();
+	m_TimeManager = TimeManager();
+	m_InputManager = InputManager();
 }
 
 GameEngine::~GameEngine()
@@ -45,12 +41,6 @@ GameEngine::~GameEngine()
 
 	if (m_Window)
 		SDL_DestroyWindow(m_Window);
-
-	if (m_TimeManager)
-		delete m_TimeManager;
-
-	if (m_InputManager)
-		delete m_InputManager;
 
 	SDL_Quit();
 }
@@ -68,7 +58,7 @@ int GameEngine::Run()
 
 	while (running)
 	{
-		m_InputManager->ResetInputStates();
+		m_InputManager.ResetInputStates();
 
 		while (SDL_PollEvent(&event))
 		{
@@ -78,11 +68,11 @@ int GameEngine::Run()
 			}
 			else
 			{
-				m_InputManager->HandleEvent(event);
+				m_InputManager.HandleEvent(event);
 			}
 		}
 
-		m_TimeManager->Update();
+		m_TimeManager.Update();
 		for (auto& object : m_gameObjects)
 		{
 			object->Update();

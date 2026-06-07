@@ -10,11 +10,11 @@ void MovableQuad::Start()
 void MovableQuad::Update()
 {
 	const float quadSize = 100.0f;
-	int horizontal = GetEngine().m_InputManager->GetHorizontalAxis();
-	int vertical = GetEngine().m_InputManager->GetVerticalAxis() * -1; // (0, 0) coordinate is on top left, so x increases to the right, and y increases to the bottom	
+	int horizontal = GetEngine().m_InputManager.GetHorizontalAxis();
+	int vertical = GetEngine().m_InputManager.GetVerticalAxis() * -1; // (0, 0) coordinate is on top left, so x increases to the right, and y increases to the bottom	
 	Vector2 axis = Vector2(horizontal, vertical).ClampMagnitude(1.0f);
 	const int movementSpeed = 400; // Pixels per second
-	m_Position += axis * movementSpeed * GetEngine().m_TimeManager->GetDeltaTimeSecs();
+	m_Position += axis * movementSpeed * GetEngine().m_TimeManager.GetDeltaTimeSecs();
 
 	int windowWidth;
 	int windowHeight;
