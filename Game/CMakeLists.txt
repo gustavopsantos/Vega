@@ -2,6 +2,10 @@ add_executable(Game
     Main.cpp
     MovableQuad.cpp
     MovableQuad.h
+    PathNode.cpp
+    PathNode.h
+    PathFinding.cpp
+    PathFinding.h
 )
 
 target_link_libraries(Game
